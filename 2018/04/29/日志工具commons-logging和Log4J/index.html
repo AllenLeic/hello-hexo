@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>日志工具commons-logging和Log4J | 雷聪的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 日志概述在目前的 Java 编程中，日志是非常好用的一个技能，能够得到的信息比简单的 System.out.println()  多很多，使用也越来越方便，此文主要介绍一下 commons-logging 和 Log4J日志工具。 1.1 为什么要使用日志工具使用日志当然是有其优势的，对于 System.out.println() 这种日志方式，虽然简单，但是缺点是非常明显的。比如，">
+<meta name="keywords" content="Java,log">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日志工具commons-logging和Log4J">
+<meta property="og:url" content="http://allenlei.xyz/2018/04/29/日志工具commons-logging和Log4J/index.html">
+<meta property="og:site_name" content="雷聪的个人博客">
+<meta property="og:description" content="1. 日志概述在目前的 Java 编程中，日志是非常好用的一个技能，能够得到的信息比简单的 System.out.println()  多很多，使用也越来越方便，此文主要介绍一下 commons-logging 和 Log4J日志工具。 1.1 为什么要使用日志工具使用日志当然是有其优势的，对于 System.out.println() 这种日志方式，虽然简单，但是缺点是非常明显的。比如，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://allenlei.xyz/2018/04/29/日志工具commons-logging和Log4J/1524139965422.png">
+<meta property="og:image" content="http://allenlei.xyz/2018/04/29/日志工具commons-logging和Log4J/日志工具commons-logging和Log4J.assets/1524139965422.png">
+<meta property="og:updated_time" content="2018-04-29T14:25:00.276Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="日志工具commons-logging和Log4J">
+<meta name="twitter:description" content="1. 日志概述在目前的 Java 编程中，日志是非常好用的一个技能，能够得到的信息比简单的 System.out.println()  多很多，使用也越来越方便，此文主要介绍一下 commons-logging 和 Log4J日志工具。 1.1 为什么要使用日志工具使用日志当然是有其优势的，对于 System.out.println() 这种日志方式，虽然简单，但是缺点是非常明显的。比如，">
+<meta name="twitter:image" content="http://allenlei.xyz/2018/04/29/日志工具commons-logging和Log4J/1524139965422.png">
+  
+    <link rel="alternate" href="/atom.xml" title="雷聪的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">雷聪的个人博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">一个不羁的码农</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://allenlei.xyz"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-日志工具commons-logging和Log4J" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/29/日志工具commons-logging和Log4J/" class="article-date">
+  <time datetime="2018-04-29T13:41:29.000Z" itemprop="datePublished">2018-04-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      日志工具commons-logging和Log4J
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-日志概述"><a href="#1-日志概述" class="headerlink" title="1. 日志概述"></a>1. 日志概述</h1><p>在目前的 Java 编程中，日志是非常好用的一个技能，能够得到的信息比简单的 <code>System.out.println()</code>  多很多，使用也越来越方便，此文主要介绍一下 <code>commons-logging</code> 和 <code>Log4J</code>日志工具。</p>
+<h2 id="1-1-为什么要使用日志工具"><a href="#1-1-为什么要使用日志工具" class="headerlink" title="1.1 为什么要使用日志工具"></a>1.1 为什么要使用日志工具</h2><p>使用日志当然是有其优势的，对于 <code>System.out.println()</code> 这种日志方式，虽然简单，但是缺点是非常明显的。比如，  </p>
+<ul>
+<li>这种输出是不可控制的</li>
+<li>对于复杂的程序而言，所有的信息都输出到屏幕，日志的可读性非常差</li>
+<li>输出到屏幕的话是需要消耗资源的，频繁的 IO 操作会让程序变慢</li>
+</ul>
+<p>而 <strong>Log4J</strong> 这类日志工具，增加了输出级别，输出样式，输出目的地等配置。而且不必写在程序中，提高了代码的可维护性。</p>
+<h2 id="1-2-JDK-1-4-的-Logging"><a href="#1-2-JDK-1-4-的-Logging" class="headerlink" title="1.2 JDK 1.4 的 Logging"></a>1.2 JDK 1.4 的 Logging</h2><p>从 JDK 1.4 开始。JDK 自带了一套日志系统，最大的优点是不需要任何第三方的依赖，只要是 Java 环境就能运行。不过相对于其他的日志文件而言，JDK 自带的日志文件还是比较鸡肋的，所以在此不做过多的阐述。</p>
+<h1 id="2-log4j-和-commons-logging介绍"><a href="#2-log4j-和-commons-logging介绍" class="headerlink" title="2. log4j 和 commons-logging介绍"></a>2. log4j 和 commons-logging介绍</h1><h2 id="2-1-log4j-介绍"><a href="#2-1-log4j-介绍" class="headerlink" title="2.1 log4j 介绍"></a>2.1 log4j 介绍</h2><p>log4j 是Apache 的一个开源的用于记录日志的项目，是目前使用最广泛的日志控件，可以用于日志的记录。log4j 有连个不同的版本，有 <code>log4j 1.x(已经停止了维护)</code>，和最新的 <code>log4j 2.x</code>。这个在具体的区别我暂时不是很清楚。不过不同的框架可能用的是不同的。<strong>spring 用的是 log4j 的1.x 版本，struts2 用的是 2.x 版本， 两个版本的配置是不能通用的。</strong>      <a href="http://logging.apache.org/" target="_blank" rel="noopener">官网</a>  </p>
+<p>可以使用的配置文件是 <code>log4j.properties , log4j.xml</code> 等格式。</p>
+<p>日志的分级总共分为下面这几个级别：</p>
+<p><code>ALL</code>==&gt;<code>TRACE(追踪)</code>==&gt;<code>DEBUG(调试)</code>==&gt;<code>INFO(信息)</code>==&gt;<code>WARNING(警告)</code>==&gt;<code>ERROR(错误)</code>==&gt; <code>fital(致命)</code> ==&gt; <code>OFF</code> </p>
+<p>如果设置为 <code>WARING</code> 那么之前的<code>DEBUG | INFO</code> 级别的日志都不会输出。</p>
+<h2 id="2-2-commons-logging介绍"><a href="#2-2-commons-logging介绍" class="headerlink" title="2.2 commons-logging介绍"></a>2.2 commons-logging介绍</h2><p><code>commons-logging</code> 提供了基础的功能，能够选择使用 <code>Log4J</code> 还是<code>JDK  Logging</code>，但是不依赖于它们的 API， 如果项目中有 <code>Log4J</code> 优先使用 <code>Log4J</code> ，否则使用<code>JDK Logging</code>。可以对<code>commons-logging</code> 进行配置。</p>
+<h1 id="3-log4j-1-x-版本"><a href="#3-log4j-1-x-版本" class="headerlink" title="3. log4j 1.x 版本"></a>3. log4j 1.x 版本</h1><p><code>log4j1.x</code> 版本一般的日志配置文件为 properties 和 xml 。日志的配置文件一般会包括，输出级别，输出目的地，输出的附加信息，输出的格式等信息。</p>
+<img src="/2018/04/29/日志工具commons-logging和Log4J/1524139965422.png" title="This is an example image">
+<p><img src="日志工具commons-logging和Log4J.assets/1524139965422.png" alt="1524139965422">  </p>
+<h2 id="log4j-properties简单配置的说明"><a href="#log4j-properties简单配置的说明" class="headerlink" title="log4j.properties简单配置的说明"></a><code>log4j.properties</code>简单配置的说明</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">### direct log messages to stdout 这是配置一个简单的###</span><br><span class="line">####定义 stdout 输出的位置 输出到控制台的值为 org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span><br><span class="line">### stdout 输出的目标只有两种 System.err==&gt; 代表控制台的error字体 System.out ==&gt; 代表普通信息字体</span><br><span class="line">log4j.appender.stdout.Target=System.err  </span><br><span class="line">### stdout 的输出格式，利用正则表达式匹配，%d 可以使用 SimpleDataFormat的格式</span><br><span class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern=%d %-5p [%t] %C&#123;2&#125; (%F:%L) - %m%n</span><br><span class="line"></span><br><span class="line">### direct messages to file mylog.log 把日志定向到文件 ###</span><br><span class="line">### file 是输出设备，输出到文件的值为 org.apache.log4j.FileAppender</span><br><span class="line">log4j.appender.file=org.apache.log4j.FileAppender</span><br><span class="line">### file 输出的文件名</span><br><span class="line">log4j.appender.file.File=c\:mylog.log</span><br><span class="line">### file 输出的格式，利用正则表达式匹配，%d 可以使用 SimpleDataFormat的格式</span><br><span class="line">log4j.appender.file.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.file.layout.ConversionPattern=%d %-5p [%t] %C&#123;2&#125; (%F:%L) - %m%n</span><br><span class="line"></span><br><span class="line">### set log levels - for more verbose logging change &apos;info&apos; to &apos;debug&apos; ###</span><br><span class="line">### 定义输出日志的级别为 info 级别，输出的 stdout 设备上。</span><br><span class="line">log4j.rootLogger=info, stdout</span><br></pre></td></tr></table></figure>
+<p>Java 中的使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Logger rootLogger = Logger.getRootLogger();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这种方式和 log4j2 的方式不一样。推荐用传参数的。最好定义全局静态</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Logger logger = Logger.getLogger(Log4jDemo.class);</span><br></pre></td></tr></table></figure>
+<h2 id="log4j-xml-配置"><a href="#log4j-xml-配置" class="headerlink" title="log4j.xml 配置"></a><code>log4j.xml</code> 配置</h2><p>与log4j2 很不同的一点是，这个需要导入dtd 约束，所以说 log4j2.x 还是改进了很多的。这是最简单的输出到控制台的配置。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line">    <span class="meta">&lt;!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd"&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">log4j:configuration</span> <span class="attr">xmlns:log4j</span>=<span class="string">'http://jakarta.apache.org/log4j/'</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"STDOUT"</span> <span class="attr">class</span>=<span class="string">"org.apache.log4j.ConsoleAppender"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">layout</span> <span class="attr">class</span>=<span class="string">"org.apache.log4j.PatternLayout"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"ConversionPattern"</span> <span class="attr">value</span>=<span class="string">"%d %-5p [%t] %C&#123;2&#125; (%F:%L) - %m%n"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">category</span> <span class="attr">name</span>=<span class="string">"org.apache.log4j.xml"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">priority</span> <span class="attr">value</span>=<span class="string">"info"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Root</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">priority</span> <span class="attr">value</span> =<span class="string">"debug"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"STDOUT"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Root</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">log4j:configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-log4j-2-x-使用"><a href="#4-log4j-2-x-使用" class="headerlink" title="4. log4j 2.x 使用"></a>4. log4j 2.x 使用</h1><p><a href="http://logging.apache.org/log4j/2.x/manual/configuration.html" target="_blank" rel="noopener">官方设置文档</a>中的案例。log4j的日志级别，log4j规定了默认的几个级别：<code>trace</code>&lt;<code>debug</code>&lt;<code>info</code>&lt;<code>warn</code>&lt;<code>error</code>&lt;<code>fatal</code>   </p>
+<ul>
+<li>log4j 2.x 的文件名字也不同了，命名规则是 <code>log4j2.*</code></li>
+</ul>
+<ul>
+<li>级别之间是包含的关系，意思是如果你设置日志级别是trace，则大于等于这个级别的日志都会输出。</li>
+</ul>
+<h2 id="log4j2-xml配置"><a href="#log4j2-xml配置" class="headerlink" title="log4j2.xml配置"></a><code>log4j2.xml</code>配置</h2><p>在 Java 代码中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.foo.Bar;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Import log4j classes.</span></span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.LogManager;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// Define a static logger variable so that it references the</span></span><br><span class="line">    <span class="comment">// Logger instance named "MyApp".</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LogManager.getLogger(MyApp.class);</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">final</span> String... args)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// Set up a simple configuration that logs on the console.</span></span><br><span class="line"> </span><br><span class="line">        logger.trace(<span class="string">"Entering application."</span>);</span><br><span class="line">        Bar bar = <span class="keyword">new</span> Bar();</span><br><span class="line">        <span class="keyword">if</span> (!bar.doIt()) &#123;</span><br><span class="line">            logger.error(<span class="string">"Didn't do it."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        logger.trace(<span class="string">"Exiting application."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>官方的默认配置  log4j2.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">Configuration</span> <span class="attr">status</span>=<span class="string">"WARN"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Appenders</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Console</span> <span class="attr">name</span>=<span class="string">"Console"</span> <span class="attr">target</span>=<span class="string">"SYSTEM_OUT"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"%d&#123;HH:mm:ss.SSS&#125; [%t] %-5level %logger&#123;36&#125; - %msg%n"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Console</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Appenders</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Loggers</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 这个logger 是单独定义一个类的输出是什么等级的。--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Logger</span> <span class="attr">name</span>=<span class="string">"com.foo.Bar"</span> <span class="attr">level</span>=<span class="string">"trace"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">AppenderRef</span> <span class="attr">ref</span>=<span class="string">"Console"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Logger</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Root</span> <span class="attr">level</span>=<span class="string">"error"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">AppenderRef</span> <span class="attr">ref</span>=<span class="string">"Console"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Root</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Loggers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>解读</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;  </span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">status</span>=<span class="string">"error"</span>&gt;</span>  </span><br><span class="line">    <span class="comment">&lt;!--优先级从高到低依次为：OFF、FATAL、ERROR、WARN、INFO、DEBUG、TRACE、ALL --&gt;</span>  </span><br><span class="line">    <span class="comment">&lt;!--先定义所有的appender --&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">appenders</span>&gt;</span>  </span><br><span class="line">        <span class="comment">&lt;!--这个输出控制台的配置 --&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">Console</span> <span class="attr">name</span>=<span class="string">"Console"</span> <span class="attr">target</span>=<span class="string">"SYSTEM_OUT"</span>&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">"trace"</span> <span class="attr">onMatch</span>=<span class="string">"ACCEPT"</span>  </span></span><br><span class="line"><span class="tag">                <span class="attr">onMismatch</span>=<span class="string">"DENY"</span> /&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!--这个都知道是输出日志的格式 --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span>  </span></span><br><span class="line"><span class="tag">                <span class="attr">pattern</span>=<span class="string">"%d&#123;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; %-5level %class&#123;36&#125; %L %M - %msg%xEx%n"</span> /&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;/<span class="name">Console</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">        <span class="comment">&lt;!--文件会打印出所有信息,单个文件 --&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">File</span> <span class="attr">name</span>=<span class="string">"File"</span> <span class="attr">fileName</span>=<span class="string">"D:\logs\logfile.log"</span> <span class="attr">append</span>=<span class="string">"true"</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span>  </span></span><br><span class="line"><span class="tag">                <span class="attr">pattern</span>=<span class="string">"%d&#123;HH:mm:ss.SSS&#125; %-5level %class&#123;36&#125; %L %M - %msg%xEx%n"</span> /&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;/<span class="name">File</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">        <span class="comment">&lt;!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 --&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">RollingFile</span> <span class="attr">name</span>=<span class="string">"RollingFile"</span> <span class="attr">fileName</span>=<span class="string">"D:\logs\app.log"</span>  </span></span><br><span class="line"><span class="tag">            <span class="attr">filePattern</span>=<span class="string">"log/$$&#123;date:yyyy-MM&#125;/app-%d&#123;MM-dd-yyyy&#125;-%i.log.gz"</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span>  </span></span><br><span class="line"><span class="tag">                <span class="attr">pattern</span>=<span class="string">"%d&#123;yyyy-MM-dd 'at' HH:mm:ss z&#125; %-5level %class&#123;36&#125; %L %M - %msg%xEx%n"</span> /&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">SizeBasedTriggeringPolicy</span> <span class="attr">size</span>=<span class="string">"2MB"</span> /&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;/<span class="name">RollingFile</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">appenders</span>&gt;</span>  </span><br><span class="line">    <span class="comment">&lt;!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 --&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">loggers</span>&gt;</span>  </span><br><span class="line">        <span class="comment">&lt;!--建立一个默认的root的logger --&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"trace"</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"RollingFile"</span> /&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"Console"</span> /&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;/<span class="name">root</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">loggers</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://allenlei.xyz/2018/04/29/日志工具commons-logging和Log4J/" data-id="cjgkw41jh00004wzdwlgq60qg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/log/">log</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/29/Oracle-从入门到精通/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Oracle 从入门到精通
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBMS/">DBMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log/">log</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DBMS/" style="font-size: 10px;">DBMS</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/log/" style="font-size: 20px;">log</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/29/2018-4/">2018-4</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/29/Oracle-从入门到精通/">Oracle 从入门到精通</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/29/日志工具commons-logging和Log4J/">日志工具commons-logging和Log4J</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/29/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 雷聪<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
