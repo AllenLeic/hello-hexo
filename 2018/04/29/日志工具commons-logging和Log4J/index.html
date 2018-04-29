@@ -8,7 +8,7 @@
   <title>日志工具commons-logging和Log4J | 雷聪的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="1. 日志概述在目前的 Java 编程中，日志是非常好用的一个技能，能够得到的信息比简单的 System.out.println()  多很多，使用也越来越方便，此文主要介绍一下 commons-logging 和 Log4J日志工具。 1.1 为什么要使用日志工具使用日志当然是有其优势的，对于 System.out.println() 这种日志方式，虽然简单，但是缺点是非常明显的。比如，">
-<meta name="keywords" content="Java,log">
+<meta name="keywords" content="Java,utils">
 <meta property="og:type" content="article">
 <meta property="og:title" content="日志工具commons-logging和Log4J">
 <meta property="og:url" content="http://allenlei.xyz/2018/04/29/日志工具commons-logging和Log4J/index.html">
@@ -16,8 +16,7 @@
 <meta property="og:description" content="1. 日志概述在目前的 Java 编程中，日志是非常好用的一个技能，能够得到的信息比简单的 System.out.println()  多很多，使用也越来越方便，此文主要介绍一下 commons-logging 和 Log4J日志工具。 1.1 为什么要使用日志工具使用日志当然是有其优势的，对于 System.out.println() 这种日志方式，虽然简单，但是缺点是非常明显的。比如，">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://allenlei.xyz/2018/04/29/日志工具commons-logging和Log4J/1524139965422.png">
-<meta property="og:image" content="http://allenlei.xyz/2018/04/29/日志工具commons-logging和Log4J/日志工具commons-logging和Log4J.assets/1524139965422.png">
-<meta property="og:updated_time" content="2018-04-29T14:25:00.276Z">
+<meta property="og:updated_time" content="2018-04-29T14:34:08.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日志工具commons-logging和Log4J">
 <meta name="twitter:description" content="1. 日志概述在目前的 Java 编程中，日志是非常好用的一个技能，能够得到的信息比简单的 System.out.println()  多很多，使用也越来越方便，此文主要介绍一下 commons-logging 和 Log4J日志工具。 1.1 为什么要使用日志工具使用日志当然是有其优势的，对于 System.out.println() 这种日志方式，虽然简单，但是缺点是非常明显的。比如，">
@@ -110,8 +109,7 @@
 <p>如果设置为 <code>WARING</code> 那么之前的<code>DEBUG | INFO</code> 级别的日志都不会输出。</p>
 <h2 id="2-2-commons-logging介绍"><a href="#2-2-commons-logging介绍" class="headerlink" title="2.2 commons-logging介绍"></a>2.2 commons-logging介绍</h2><p><code>commons-logging</code> 提供了基础的功能，能够选择使用 <code>Log4J</code> 还是<code>JDK  Logging</code>，但是不依赖于它们的 API， 如果项目中有 <code>Log4J</code> 优先使用 <code>Log4J</code> ，否则使用<code>JDK Logging</code>。可以对<code>commons-logging</code> 进行配置。</p>
 <h1 id="3-log4j-1-x-版本"><a href="#3-log4j-1-x-版本" class="headerlink" title="3. log4j 1.x 版本"></a>3. log4j 1.x 版本</h1><p><code>log4j1.x</code> 版本一般的日志配置文件为 properties 和 xml 。日志的配置文件一般会包括，输出级别，输出目的地，输出的附加信息，输出的格式等信息。</p>
-<img src="/2018/04/29/日志工具commons-logging和Log4J/1524139965422.png" title="This is an example image">
-<p><img src="日志工具commons-logging和Log4J.assets/1524139965422.png" alt="1524139965422">  </p>
+<img src="/2018/04/29/日志工具commons-logging和Log4J/1524139965422.png">
 <h2 id="log4j-properties简单配置的说明"><a href="#log4j-properties简单配置的说明" class="headerlink" title="log4j.properties简单配置的说明"></a><code>log4j.properties</code>简单配置的说明</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">### direct log messages to stdout 这是配置一个简单的###</span><br><span class="line">####定义 stdout 输出的位置 输出到控制台的值为 org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span><br><span class="line">### stdout 输出的目标只有两种 System.err==&gt; 代表控制台的error字体 System.out ==&gt; 代表普通信息字体</span><br><span class="line">log4j.appender.stdout.Target=System.err  </span><br><span class="line">### stdout 的输出格式，利用正则表达式匹配，%d 可以使用 SimpleDataFormat的格式</span><br><span class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern=%d %-5p [%t] %C&#123;2&#125; (%F:%L) - %m%n</span><br><span class="line"></span><br><span class="line">### direct messages to file mylog.log 把日志定向到文件 ###</span><br><span class="line">### file 是输出设备，输出到文件的值为 org.apache.log4j.FileAppender</span><br><span class="line">log4j.appender.file=org.apache.log4j.FileAppender</span><br><span class="line">### file 输出的文件名</span><br><span class="line">log4j.appender.file.File=c\:mylog.log</span><br><span class="line">### file 输出的格式，利用正则表达式匹配，%d 可以使用 SimpleDataFormat的格式</span><br><span class="line">log4j.appender.file.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.file.layout.ConversionPattern=%d %-5p [%t] %C&#123;2&#125; (%F:%L) - %m%n</span><br><span class="line"></span><br><span class="line">### set log levels - for more verbose logging change &apos;info&apos; to &apos;debug&apos; ###</span><br><span class="line">### 定义输出日志的级别为 info 级别，输出的 stdout 设备上。</span><br><span class="line">log4j.rootLogger=info, stdout</span><br></pre></td></tr></table></figure>
 <p>Java 中的使用</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Logger rootLogger = Logger.getRootLogger();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这种方式和 log4j2 的方式不一样。推荐用传参数的。最好定义全局静态</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Logger logger = Logger.getLogger(Log4jDemo.class);</span><br></pre></td></tr></table></figure>
@@ -134,10 +132,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://allenlei.xyz/2018/04/29/日志工具commons-logging和Log4J/" data-id="cjgkw41jh00004wzdwlgq60qg" class="article-share-link">Share</a>
+      <a data-url="http://allenlei.xyz/2018/04/29/日志工具commons-logging和Log4J/" data-id="cjgky0a0z0001qwzdfxksu56k" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/log/">log</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/utils/">utils</a></li></ul>
 
     </footer>
   </div>
@@ -155,11 +153,6 @@
     </a>
   
   
-    <a href="/2018/04/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
-    </a>
-  
 </nav>
 
   
@@ -176,7 +169,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBMS/">DBMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log/">log</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBMS/">DBMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utils/">utils</a></li></ul>
     </div>
   </div>
 
@@ -186,7 +179,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DBMS/" style="font-size: 10px;">DBMS</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/log/" style="font-size: 20px;">log</a>
+      <a href="/tags/DBMS/" style="font-size: 10px;">DBMS</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/utils/" style="font-size: 10px;">utils</a>
     </div>
   </div>
 
@@ -208,19 +201,11 @@
       <ul>
         
           <li>
-            <a href="/2018/04/29/2018-4/">2018-4</a>
-          </li>
-        
-          <li>
             <a href="/2018/04/29/Oracle-从入门到精通/">Oracle 从入门到精通</a>
           </li>
         
           <li>
             <a href="/2018/04/29/日志工具commons-logging和Log4J/">日志工具commons-logging和Log4J</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/29/hello-world/">Hello World</a>
           </li>
         
       </ul>
